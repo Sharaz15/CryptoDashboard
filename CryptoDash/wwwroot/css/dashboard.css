@@ -1,0 +1,15 @@
+﻿.currency-widget {
+    background-color: #333300;
+}
+
+body {
+    background-color: #495057;
+}
+
+.currency-txt {
+    color: #FFFFFF;
+}
+
+.border {
+    border: 1px solid #383d41 !important;
+}
