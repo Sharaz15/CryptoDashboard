@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoDash", "CryptoDash\CryptoDash.csproj", "{1B84D36D-3D39-42C4-9727-E1046A5ABE0F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoWallet", "CryptoWallet\CryptoWallet.csproj", "{A74F516E-E12D-4E9C-8B77-5967AAB35062}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,5 +15,9 @@ Global
 		{1B84D36D-3D39-42C4-9727-E1046A5ABE0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B84D36D-3D39-42C4-9727-E1046A5ABE0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B84D36D-3D39-42C4-9727-E1046A5ABE0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A74F516E-E12D-4E9C-8B77-5967AAB35062}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A74F516E-E12D-4E9C-8B77-5967AAB35062}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A74F516E-E12D-4E9C-8B77-5967AAB35062}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A74F516E-E12D-4E9C-8B77-5967AAB35062}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
