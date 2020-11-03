@@ -13,3 +13,46 @@ body {
 .border {
     border: 1px solid #383d41 !important;
 }
+
+.news {
+    width: 160px;
+}
+
+.news-scroll a {
+    text-decoration: none;
+    background-color: #333300;
+}
+
+.dot {
+    height: 6px;
+    width: 6px;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: 2px !important;
+    background-color: rgb(207, 23, 23);
+    border-radius: 50%;
+    display: inline-block
+}
+
+.ticker {
+    margin-top: 3rem;
+}
+
+.icon {
+    max-width: 20px;
+    max-height: 20px;
+    margin: 4px;
+}
+
+.currency-ticker {
+    display: inline-block;
+    padding-right: 20px;
+}
+
+.negative-change {
+    color: #ff0000;
+}
+
+.positive-change {
+    color: #00ff00;
+}
