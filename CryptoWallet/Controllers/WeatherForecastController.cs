@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CryptoWallet.Models;
+using CryptoWallet.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -17,10 +19,12 @@ namespace CryptoWallet.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IWalletService WalletService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IWalletService walletService)
         {
             _logger = logger;
+            WalletService = walletService;
         }
 
         [HttpGet]
@@ -34,6 +38,49 @@ namespace CryptoWallet.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpGet]
+        public IActionResult GetCurrencyHoldings()
+        {
+            return Ok(WalletService.GetCurrencys().ToArray());
+        }
+
+        [HttpGet]
+        public IActionResult GetTransactions()
+        {
+            return Ok(WalletService.GetTransactions().ToArray());
+        }
+
+        [HttpPost]
+        public IActionResult AddCurrencyToWallet(Currencys currency, Transactions transaction)
+        {
+            if (AreFieldsNull(currency, transaction))
+            {
+                return BadRequest("some or all of fields provided are null");
+            }
+
+            try
+            {
+              WalletService.AddOrUpdateCurrencyHolding(currency, transaction);
+            }catch(Exception e)
+            {
+                _logger.LogError(e, "failed to add currency to wallet");
+                return StatusCode(500,"database entry failed to execute");
+            }
+
+            return Ok();
+        }
+
+        private bool AreFieldsNull(Currencys currency, Transactions transaction)
+        {
+            bool isAnyCurrFieldsNull = currency.GetType().GetProperties()
+                            .All(p => p.GetValue(currency) != null);
+
+            bool isAnyTransNull = transaction.GetType().GetProperties()
+                            .All(p => p.GetValue(transaction) != null);
+
+            return isAnyCurrFieldsNull || isAnyTransNull;
         }
     }
 }

@@ -5,7 +5,7 @@ using CryptoWallet.Models;
 
 namespace CryptoWallet.Services
 {
-    public class WalletService
+    public class WalletService : IWalletService
     {
         public WalletService()
         {
