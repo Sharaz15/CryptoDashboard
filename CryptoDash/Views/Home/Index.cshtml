@@ -1,70 +1,40 @@
-﻿<div class="row ticker" id="currencyTicker">
-    <div class="col-md-12">
-        <div class="d-flex justify-content-between align-items-center breaking-news row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <marquee class="currency-widget news-scroll" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
-                <div class="currency-ticker" v-for="currency in currencyArr">
-                    <img class="icon" :src="'https://www.cryptocompare.com' + currency.RAW.USD.IMAGEURL"/>
-                    <span class="currency-txt"> {{ currency.RAW.USD.FROMSYMBOL }} </span>
-                    <span class="currency-txt"> ${{ currency.RAW.USD.PRICE }}</span>
-                    <span :class="[currency.RAW.USD.CHANGEPCT24HOUR < 0 ? 'negative-change':'positive-change', 'currency-txt']"> {{ Math.round((currency.RAW.USD.CHANGEPCT24HOUR + Number.EPSILON) * 100) / 100 }}% </span>
+﻿<div id="app">
+
+    <div class="row ticker">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-between align-items-center breaking-news row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <marquee class="currency-widget news-scroll" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+                    <div class="currency-ticker" v-for="currency in currencyArr">
+                        <img class="icon" :src="'https://www.cryptocompare.com' + currency.RAW.USD.IMAGEURL" />
+                        <span class="currency-txt"> {{ currency.RAW.USD.FROMSYMBOL }} </span>
+                        <span class="currency-txt"> ${{ currency.RAW.USD.PRICE }}</span>
+                        <span :class="[currency.RAW.USD.CHANGEPCT24HOUR < 0 ? 'negative-change':'positive-change', 'currency-txt']"> {{ Math.round((currency.RAW.USD.CHANGEPCT24HOUR + Number.EPSILON) * 100) / 100 }}% </span>
+                    </div>
+                </marquee>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row mb-2">
+
+        <div class="col-md-6" v-for="currency in walletArr">
+            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="currency-widget col p-4 d-flex flex-column position-static">
+                    <span class="currency-txt d-inline-block mb-2">{{ currency.CurrencyName }}</span>
+                    <h3 class="currency-txt mb-0">{{ currency.Amount }} {{ currency.CurrencySymbol }}</h3>
+                    <p class="currency-txt card-text mb-auto">
+                        <span :class="[currency.PercentChange24Hour < 0 ? 'negative-change':'positive-change', 'currency-txt']"> {{ Math.round((currency.PercentChange24Hour + Number.EPSILON) * 100) / 100 }} % </span>
+                        Since Yesterday
+                    </p>
                 </div>
-            </marquee>
-        </div>
-    </div>
-</div>
-
-<div class="row mb-2">
-    <div class="col-md-6">
-        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="currency-widget col p-4 d-flex flex-column position-static">
-                <span class="currency-txt d-inline-block mb-2">Bitcoin</span>
-                <h3 class="currency-txt mb-0">Price</h3>
-                <p class="currency-txt card-text mb-auto">Since Yesterday</p>
-            </div>
-            <div class="currency-widget col-auto d-none d-lg-block">
-                <img class="bd-placeholder-img" width="100" height="100" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail" src="https://www.cryptocompare.com/media/19633/btc.png">
+                <div class="currency-widget col-auto d-none d-lg-block">
+                    <img class="bd-placeholder-img" width="100" height="100" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail" :src="'https://www.cryptocompare.com' + currency.ImgURL">
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-6">
-        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="currency-widget col p-4 d-flex flex-column position-static">
-                <span class="currency-txt d-inline-block mb-2">Bitcoin</span>
-                <h3 class="currency-txt mb-0">Price</h3>
-                <p class="currency-txt card-text mb-auto">Since Yesterday</p>
-            </div>
-            <div class="currency-widget col-auto d-none d-lg-block">
-                <img class="bd-placeholder-img" width="100" height="100" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail" src="https://www.cryptocompare.com/media/19633/btc.png">
-            </div>
-        </div>
-    </div>
 
-    <div class="col-md-6">
-        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="currency-widget col p-4 d-flex flex-column position-static">
-                <span class="currency-txt d-inline-block mb-2">Bitcoin</span>
-                <h3 class="currency-txt mb-0">Price</h3>
-                <p class="currency-txt card-text mb-auto">Since Yesterday</p>
-            </div>
-            <div class="currency-widget col-auto d-none d-lg-block">
-                <img class="bd-placeholder-img" width="100" height="100" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail" src="https://www.cryptocompare.com/media/19633/btc.png">
-            </div>
-        </div>
     </div>
-
-    <div class="col-md-6">
-        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="currency-widget col p-4 d-flex flex-column position-static">
-                <span class="currency-txt d-inline-block mb-2">Bitcoin</span>
-                <h3 class="currency-txt mb-0">Price</h3>
-                <p class="currency-txt card-text mb-auto">Since Yesterday</p>
-            </div>
-            <div class="currency-widget col-auto d-none d-lg-block">
-                <img class="bd-placeholder-img" width="100" height="100" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail" src="https://www.cryptocompare.com/media/19633/btc.png">
-            </div>
-        </div>
-    </div>
-
 
 </div>
