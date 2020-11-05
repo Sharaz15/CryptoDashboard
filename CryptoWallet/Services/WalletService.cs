@@ -23,13 +23,14 @@ namespace CryptoWallet.Services
         {
             using (var context = new CryptoDashDatabaseContext())
             {
-                if (!context.Currencys.Contains(currency))
+                if (!context.Currencys.Any(c => c.CurrencyName == currency.CurrencyName))
                 {
                     context.Currencys.Add(currency);
                 }
                 else
                 {
-                    context.Currencys.Update(currency);
+                    var existingCurr = context.Currencys.Single(c => c.CurrencyName == currency.CurrencyName);
+                    existingCurr.Amount += currency.Amount;
                 }
                 context.Transactions.Add(transaction);
 
