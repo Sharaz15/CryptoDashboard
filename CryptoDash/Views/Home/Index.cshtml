@@ -37,4 +37,32 @@
 
     </div>
 
+    <div class="row mb-2">
+
+        <div class="col-md-6">
+            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="currency-widget col p-4 d-flex flex-column position-static">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="amount" class="currency-txt">Amount</label>
+                                <input v-model="buyAmountSpecified" type="number" class="form-control" id="amount">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="currencyDropdown" class="currency-txt">Currency</label>
+                                <select v-model="buyCurrencySelected" class="form-control" id="currencyDropdown">
+                                    <option v-for="currencyName in currencyOptions">{{ currencyName }}</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" v-on:click="buyNow" class="btn btn-primary">Buy Now</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
 </div>

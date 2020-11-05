@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using CryptoWallet.Models;
@@ -29,39 +30,49 @@ namespace CryptoWallet.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(Transactions transaction)
+        public IActionResult Post([FromBody] Transactions transaction)
         {
             var currency = new Currencys
             {
                 CurrencyName = transaction.CurrencyName,
                 Amount = transaction.Amount
             };
-            if (AreFieldsNull(currency, transaction))
+
+            if (!AreFieldsValid(currency, transaction))
             {
-                return BadRequest("some or all of fields provided are null");
+                return BadRequest("some or all fields have not been provided");
             }
 
             try
             {
-              WalletService.AddOrUpdateCurrencyHolding(currency, transaction);
-            }catch(Exception e)
+                WalletService.AddOrUpdateCurrencyHolding(currency, transaction);
+            }
+            catch (Exception e)
             {
                 _logger.LogError(e, "failed to add currency to wallet");
-                return StatusCode(500,"database entry failed to execute");
+                return StatusCode(500, "database entry failed to execute");
             }
 
             return Ok();
         }
 
-        private bool AreFieldsNull(Currencys currency, Transactions transaction)
+        private bool AreFieldsValid(Currencys currency, Transactions transaction)
         {
-            bool isAnyCurrFieldsNull = currency.GetType().GetProperties()
-                            .All(p => p.GetValue(currency) != null);
-
-            bool isAnyTransNull = transaction.GetType().GetProperties()
-                            .All(p => p.GetValue(transaction) != null);
-
-            return isAnyCurrFieldsNull || isAnyTransNull;
+            if (!string.IsNullOrEmpty(currency.CurrencyName) &&
+                currency.Amount != default &&
+                !string.IsNullOrEmpty(transaction.CurrencyName) &&
+                transaction.Amount != default &&
+                transaction.Price != default &&
+                transaction.TransactionDate != null && transaction.TransactionDate != DateTime.MinValue
+            )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+          
         }
     }
 }
