@@ -56,3 +56,21 @@ body {
 .positive-change {
     color: #00ff00;
 }
+
+tr {
+    background-color: #333300;
+}
+
+.enable-scroll {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.progress {
+    height: 0.5rem;
+    margin-top: 1rem;
+}
+
+.progress-bar {
+    background-color: #6600cc;
+}

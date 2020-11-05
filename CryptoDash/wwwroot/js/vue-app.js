@@ -3,12 +3,14 @@
     data: {
         currencyArr: [],
         walletArr: [],
+        transactionsArr: [],
         buyCurrencySelected: '',
         buyAmountSpecified: '',
         currencyOptions: []
     },
     created() {
         this.getLatestPrices(this.getWallet, this.buildCurrencyOptions);
+        this.getTransactions();
         //this.interval = setInterval(() => this.getLatestPrices(), 60000);
     },
     methods: {
@@ -70,14 +72,12 @@
                 xhr.setRequestHeader("Content-Type", "application/json");
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4 && xhr.status === 200) {
-                        
+                        this.getWallet();
+                        this.getTransactions();
                     }
                 };
                 var data = JSON.stringify(transaction);
                 xhr.send(data);
-                xhr.onloadend = function () {
-                    this.getWallet();
-                };
 
                 this.buyCurrencySelected = '';
                 this.buyAmountSpecified = '';
@@ -89,6 +89,50 @@
                 currOptions.push(this.currencyArr[i].RAW.USD.FROMSYMBOL)
             }
             this.currencyOptions = currOptions;
+        },
+        getTransactions() {
+            fetch('https://localhost:63125/api/transactions')
+                .then(response => response.json())
+                .then(data => {
+
+                    var transactionsArray = [];
+                    for (t = 0; t < data.length; t++) {
+                        transactionsArray.push({
+                            "CurrencyName": data[t].currencyName,
+                            "Amount": data[t].amount,
+                            "Price": data[t].price,
+                            "When": this.timeSince(new Date(Date.parse(data[t].transactionDate)))
+                        });
+                    }
+                    this.transactionsArr = transactionsArray;
+                });
+        },
+        timeSince(date) {
+
+            var seconds = Math.floor((new Date() - date) / 1000);
+
+            var interval = seconds / 31536000;
+
+            if (interval > 1) {
+                return Math.floor(interval) + " years";
+            }
+            interval = seconds / 2592000;
+            if (interval > 1) {
+                return Math.floor(interval) + " months";
+            }
+            interval = seconds / 86400;
+            if (interval > 1) {
+                return Math.floor(interval) + " days";
+            }
+            interval = seconds / 3600;
+            if (interval > 1) {
+                return Math.floor(interval) + " hours";
+            }
+            interval = seconds / 60;
+            if (interval > 1) {
+                return Math.floor(interval) + " minutes";
+            }
+            return Math.floor(seconds) + " seconds";
         }
 
     }
