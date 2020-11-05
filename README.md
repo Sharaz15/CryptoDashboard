@@ -23,7 +23,7 @@ CREATE TABLE Transactions (
 Next, link your database by updating the default connection string value in the appsettings.json file under the CryptoWallet project (Web Api),
 using the following format: 
 
-"Server=<servername>,1433;Initial Catalog=<databasename>;Persist Security Info=False;User ID=<username>;Password=<password>;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=60;"
+"Server=YOURSERVERNAME,1433;Initial Catalog=YOURDATABASENAME;Persist Security Info=False;User ID=YOURUSERNAME>;Password=YOURPASSWORD;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=60;"
 
 
 
