@@ -70,11 +70,14 @@
                 xhr.setRequestHeader("Content-Type", "application/json");
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4 && xhr.status === 200) {
-                        this.getWallet();
+                        
                     }
                 };
                 var data = JSON.stringify(transaction);
                 xhr.send(data);
+                xhr.onloadend = function () {
+                    this.getWallet();
+                };
 
                 this.buyCurrencySelected = '';
                 this.buyAmountSpecified = '';
